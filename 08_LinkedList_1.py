@@ -26,7 +26,7 @@ def count(head):        #1
         head = head._next
     return count
 
-print(count(head))
+# print(count(head))
 
 def ith(head, i):       #2
     count = 0
@@ -37,7 +37,7 @@ def ith(head, i):       #2
         count += 1
     return 'Out of bounds'
 
-print(ith(head, 2))
+# print(ith(head, 2))
 
 def delete(head, i):        #3
     temp = head
@@ -53,15 +53,15 @@ def delete(head, i):        #3
             head._next = head._next._next
         return temp
 
-nh = delete(head, 4)
-printl(nh)
+# nh = delete(head, 4)
+# printl(nh)
 
 def lenr(head):             #4
     if head == None:
         return 0
     return lenr(head._next) + 1
 
-print(lenr(head))
+# print(lenr(head))
 
 def insr(head, i, data):        # 5
     if head == None:
@@ -81,8 +81,8 @@ def insr(head, i, data):        # 5
 
     return head
 
-nh = insr(head, 1, 50)
-printl(nh)
+# nh = insr(head, 1, 50)
+# printl(nh)
 
 def find(head, n):          # 7
     count = 0
@@ -93,7 +93,7 @@ def find(head, n):          # 7
         count += 1
     return 'Not found'
 
-print(find(head, 20))
+# print(find(head, 20))
 
 def appendn(head, n):       # 8
     if n == 0 or n == count(head) or head == None:
@@ -116,5 +116,30 @@ def appendn(head, n):       # 8
     oldtail._next = temp
     return newhead
 
-nh = appendn(head, 4)
-printl(nh)
+# nh = appendn(head, 4)
+# printl(nh)
+
+def dupli(head):        # 9
+    while head.next != None:
+        temp1 = head
+        temp2 = head.next
+        while temp1.data == temp2.data and temp2.next != None:
+            temp2 = temp2.next
+        if temp2.next == None:
+            temp1.next = None
+            break
+            # head = temp1 (instead of break)
+        else:
+            temp1.next = temp2
+            head = temp2
+
+# dupli(head)
+# printl(head)
+
+def rev(head):          # 10
+    if head == None:
+        return
+    rev(head.next)
+    print(head.data)
+    
+# rev(head)

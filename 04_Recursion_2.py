@@ -7,7 +7,7 @@ def remdup(inp):        #2
     else:
         return inp[0] + sa
 
-print(remdup('aabcddefggxyzz'))
+# print(remdup('aabcddefggxyzz'))
 
 def ab(inp):            #7
     if len(inp) == 0:
@@ -28,7 +28,7 @@ def ab(inp):            #7
 
     return False
 
-print(ab('abbaca'))
+# print(ab('abbaca'))
 
 import copy
 
@@ -64,4 +64,4 @@ def codes(inp):         #14
     
     return out1
 
-print(codes('1231413142'))
+# print(codes('1231413142'))
