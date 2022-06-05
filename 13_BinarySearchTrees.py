@@ -132,3 +132,124 @@ def BSTfromList(lst):
 # root1 = BSTfromList([1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18])
 # printLevelWise(root1)
 # print(checkBST(root1))
+
+# 6
+def path(root, k):
+    if root == None:
+        return []
+    elif root.data == k:
+        return [k]
+    elif root.data > k:
+        pathl = path(root.left, k)
+        if len(pathl) == 0: return []
+        else: return [root.data] + pathl
+    else:
+        pathr = path(root.right, k)
+        if len(pathr) == 0: return []
+        else: return [root.data] + pathr
+
+# print(path(root, 4))
+
+# 8
+import copy
+def insDupli(root):
+    if root == None:
+        return
+    
+    insDupli(root.left)
+    insDupli(root.right)
+
+    newNode = BinaryTreeNode(root.data)
+    newNode.left = root.left
+    root.left = newNode
+
+
+# printLevelWise(root)
+# insDupli(root)
+# print()
+# printLevelWise(root)
+
+# def pairSum(froot, root, n):
+#     if root == None:
+#         return
+
+#     if search(froot, n - root.data):
+#         print(root.data, n - root.data)
+    
+#     pairSum(froot, root.left, n)
+#     pairSum(froot, root.right, n)
+# pairSum(root, root, 10)
+
+# 9
+def treeToList(root):
+    if root == None:
+        return []
+    return treeToList(root.left) + [root.data] + treeToList(root.right)
+
+def pairSum(root, n):
+    lst = treeToList(root)
+    # print(lst)
+
+    i, j = 0, len(lst)-1
+    while j>i:
+        if lst[i] + lst[j] == n:
+            print(lst[i], lst[j])
+            i,j = i+1, j-1
+        elif lst[i] + lst[j] < n:
+            i += 1
+        else:
+            j -= 1
+
+# pairSum(root, 10)
+
+# 10
+def getLCA(root, a, b):
+    if root == None:
+        return -1
+    if root.data == a or root.data == b:
+        return  root.data
+
+    leftAns = getLCA(root.left, a, b)
+    rightAns = getLCA(root.right, a, b)
+
+    if leftAns == -1 and rightAns == -1:
+        return -1
+    if leftAns != -1 and rightAns != -1:
+        return root.data
+    if leftAns != -1:
+        return leftAns
+    if rightAns != -1:
+        return rightAns
+    
+# print(getLCA(root, 5, 10))
+
+# 11
+def getLCA(root, a, b):
+    if root == None:
+        return -1
+    if root.data == a or root.data == b:
+        return  root.data
+
+    # leftAns = getLCA(root.left, a, b)
+    # rightAns = getLCA(root.right, a, b)
+
+    leftAns = -1
+    rightAns = -1
+    if root.data > a and root.data > b:
+        leftAns = getLCA(root.left, a, b)
+    elif root.data < a and root.data < b:
+        rightAns = getLCA(root.right, a, b)
+    else:
+        leftAns = getLCA(root.left, a, b)
+        rightAns = getLCA(root.right, a, b)
+
+    if leftAns == -1 and rightAns == -1:
+        return -1
+    if leftAns != -1 and rightAns != -1:
+        return root.data
+    if leftAns != -1:
+        return leftAns
+    if rightAns != -1:
+        return rightAns
+    
+# print(getLCA(root, 4, 2))
