@@ -16,6 +16,7 @@
 import copy
 from re import A
 import numpy as np
+from sqlalchemy import false
 np.random.seed(42)
 random_matrix = np.random.randint(1, 10, (10,12))
 # print(random_matrix)
@@ -118,10 +119,106 @@ def loothouses(input, output):
         case1 = output[i-1]
         case2 = output[i-2] + input[i-1]
         output[i] = max(case1, case2)
-    return output
+    return output[-1]
 
 def helper(input):
+    if len(input) == 0: return 0
     return loothouses(input, [0]*(len(input)+1))
 
 # print(helper([6,120,20,3,6]))
 
+#7
+def LIS(input):
+    if len(input) == 0: 
+        return 0
+    currList = [-1]*len(input)
+    totList = [-1]*len(input)
+    currList[0], totList[0] = 1, 1
+
+    for i in range(1, len(input)): 
+        if input[i] > input[i-1]:
+            currList[i] = currList[i-1] + 1
+        else:
+            currList[i] = 1
+        totList[i] = max(totList[i-1], currList[i])
+    
+    # print(currList, totList)
+    return totList[-1]
+
+# print(LIS([5,6,1,2,3,4,1,2,1]))
+
+# 9
+def coins(coin, max):
+    matrix = np.zeros((len(coin) + 1, max + 1)).astype(int)
+    for i in range(matrix.shape[0]):
+        matrix[i][0] = 1
+    for i in range(1, matrix.shape[0]):
+        for j in range(1, matrix.shape[1]):
+            ans = matrix[i-1][j]
+            if j >= coin[i-1]: ans += matrix[i][j - coin[i-1]]
+            matrix[i][j] = ans
+    print(matrix)
+    return matrix[-1][-1]
+
+# print(coins([1,2,5], 5))
+
+# 11
+def coinTower(N, X, Y):
+    if N == 0: return False
+    if N < 0: return True
+
+    case1 = coinTower(N - 1, X, Y)
+    case2 = coinTower(N - X, X, Y)
+    case3 = coinTower(N - Y, X, Y)
+
+    if case1 == True and case2 == True and case3 == True: return False
+    else: return True
+
+# if coinTower(10, 3, 5) == True:
+#     print('Beerus Wins')
+# else: print('Whis Wins')
+
+def coinTowerMem(N, X, Y, output):
+    if N == 0: return False
+    if N < 0: return True
+
+    if output[N] != -1: return output[N]
+
+    case1 = coinTowerMem(N - 1, X, Y, output)
+    case2 = coinTowerMem(N - X, X, Y, output)
+    case3 = coinTowerMem(N - Y, X, Y, output)
+
+    if case1 == True and case2 == True and case3 == True: output[N] = False
+    else: output[N] = True
+
+    # print(output)
+    return output[N]
+
+def helperMem(N, X, Y):
+    output = [-1] * (N + 1)
+    return coinTowerMem(N, X, Y, output)
+
+# if helperMem(25, 4, 8) == True:
+#     print('Beerus Wins')
+# else: print('Whis Wins')
+
+def coinTowerDP(N, X, Y):
+    output = [-1] * (N + 1)
+    output[0] = False
+    
+    for i in range(1, len(output)):
+        case1 = output[i - 1]
+        case2 = True
+        if i >= X: case2 = output[i - X]
+        case3 = True
+        if i >= Y: case3 = output[i - Y]
+
+        if case1 == True and case2 == True and case3 == True: output[i] = False
+        else: output[i] = True
+    
+    print(output)
+    return output[-1]
+
+if coinTowerDP(25, 4, 8) == True:
+    print('Beerus Wins')
+else: print('Whis Wins')
