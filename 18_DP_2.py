@@ -81,6 +81,7 @@ def helper(s, t):
 
 # print(helper('abc', 'dcbedf'))
 
+# 4
 def knapsack(weights, values, W):
     if len(weights) == 0:
         return 0
@@ -92,6 +93,7 @@ def knapsack(weights, values, W):
 
 # print(knapsack([1,10,4,2,10], [6,120,20,3,6], 13))
 
+# 5
 def knapsack(weights, values, W, matrix):
     for i in range(1, matrix.shape[0]):
         for j in range(1, matrix.shape[1]):
@@ -107,4 +109,19 @@ def helper(weights, values, W):
     matrix = np.zeros((len(weights) + 1, W + 1)).astype(int)
     return knapsack(weights, values, W, matrix)
 
-print(helper([1,10,4,2,10], [6,120,20,3,6], 13))
+# print(helper([1,10,4,2,10], [6,120,20,3,6], 13))
+
+# 6
+def loothouses(input, output):
+    output[1] = input[0]
+    for i in range(2, len(output)):
+        case1 = output[i-1]
+        case2 = output[i-2] + input[i-1]
+        output[i] = max(case1, case2)
+    return output
+
+def helper(input):
+    return loothouses(input, [0]*(len(input)+1))
+
+# print(helper([6,120,20,3,6]))
+
