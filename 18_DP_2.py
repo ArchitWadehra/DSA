@@ -14,9 +14,7 @@
 # print(matrix)
 
 import copy
-from re import A
 import numpy as np
-from sqlalchemy import false
 np.random.seed(42)
 random_matrix = np.random.randint(1, 10, (10,12))
 # print(random_matrix)
@@ -219,6 +217,49 @@ def coinTowerDP(N, X, Y):
     print(output)
     return output[-1]
 
-if coinTowerDP(25, 4, 8) == True:
-    print('Beerus Wins')
-else: print('Whis Wins')
+# if coinTowerDP(25, 4, 8) == True:
+#     print('Beerus Wins')
+# else: print('Whis Wins')
+
+# 12
+
+def maxSubSquare(input):
+    output = np.zeros((input.shape[0] + 1, input.shape[1] + 1)).astype(int)
+
+    # if input[0][0] == 0: output[0][0] = 1
+    # else: output[0][0] = 0
+
+    # for i in range(1, output.shape[0]):
+    #     if input[i][0] == 0 or output[i-1][0] == 1: output[i][0] = 1
+    #     else: output[i][0] = 0
+    
+    # for j in range(1, output.shape[1]):
+    #     if input[0][j] == 0 or output[0][j-1] == 1: output[0][j] = 1
+    #     else: output[0][j] = 0
+
+    # for i in range(output.shape[0]):
+    #     for j in range((output.shape[1])):
+    #         if input[i-1][j] == 0 and input[i][j-1] == 0 and input[i-1][j-1] == 0 and output[i-1][j] == output[i][j-1] == output[i-1][j-1]:
+    #             output[i][j] = max(output[i-1][j], output[i][j-1], output[i-1][j-1]) + 1
+    #         else: output[i][j] = max(output[i-1][j], output[i][j-1], output[i-1][j-1])
+
+    maxSub = 0
+
+    for i in range(1, output.shape[0]):
+        for j in range(1, output.shape[1]):
+            if input[i-1][j-1] == 1: output[i][j] = 0
+            else: output[i][j] = min(output[i-1][j], output[i][j-1], output[i-1][j-1]) + 1
+            if output[i][j] > maxSub: maxSub = output[i][j]
+
+    print(output)
+    return maxSub
+
+np.random.seed(42)
+a = np.hstack((np.ones(100), np.zeros(775))).astype(int)
+np.random.shuffle(a)
+a = np.reshape(a, (25,35))
+print(a, end = '\n\n')
+
+print(maxSubSquare(a))
+
+# 13
