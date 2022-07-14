@@ -43,4 +43,4 @@ def balancedBTs(h):
         lst[i] = ((lst[i-1]*lst[i-1]) % mod + (2*lst[i-1]*lst[i-2]) % mod) % mod
     return lst
 
-print(balancedBTs(100))
+# print(balancedBTs(100))

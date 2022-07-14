@@ -261,5 +261,3 @@ a = np.reshape(a, (25,35))
 print(a, end = '\n\n')
 
 print(maxSubSquare(a))
-
-# 13
